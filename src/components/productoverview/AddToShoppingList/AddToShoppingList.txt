@@ -1,0 +1,4 @@
+de:
+  addToCart: Zum Warenkorb Hinzufügen
+en:
+  addToCart: Add to Cart

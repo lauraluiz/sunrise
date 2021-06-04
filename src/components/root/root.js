@@ -4,6 +4,8 @@ import config from "../../../sunrise.config";
 import { provide, watch,ref } from '@vue/composition-api';
 import { DefaultApolloClient } from '@vue/apollo-composable'
 import { apolloClient } from "../../apollo";
+import useShoppingList, { SHOPPING_LIST } from "../../composition/useShoppingList";
+import useCart, { CART } from "../../composition/useCart";
 // locale is an optional route parameter, if it's missing
 // then see if it's set in store (local storage) and use that
 // if it's not in store then default to en
@@ -45,7 +47,7 @@ export default {
   components: {
     MiniCart,
   },
-  setup(props) {
+  setup(props,ctx) {
     const locale=ref(props.locale);
     const country = ref(props.country);
     watch(
@@ -58,22 +60,27 @@ export default {
     provide('locale', locale);
     provide('country', country);
     provide(DefaultApolloClient, apolloClient)
+    const cart = useCart(undefined,ctx);
+    provide(CART,cart)
+    const shoppingList = useShoppingList(undefined,ctx,cart);
+    provide(SHOPPING_LIST,shoppingList);
   },
   computed: {
     computedLocale() {
       return loc(this);
     },
-    miniCartOpen() {
-      return this.$store.state.miniCartOpen;
+    isMiniCartOpen() {
+      return this.$store.state.miniCartOpen ||
+        this.$store.state.shoppingListOpen
     },
   },
   methods: {
     close() {
-      this.$store.dispatch("toggleMiniCart");
+      this.$store.dispatch("closeMiniCart");
     },
     keyUpListener(e) {
       if (e.key === "Escape") {
-        this.$store.dispatch("closeMiniCart");
+        this.close();
       }
     },
   },

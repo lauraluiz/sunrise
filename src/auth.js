@@ -46,6 +46,9 @@ export function clientLogin(apolloClient, credentials) {
 }
 
 export function clientLogout(apolloClient, redirect) {
+  tokenProvider.fetchTokenInfo = (sdkAuth) => sdkAuth.anonymousFlow();
+  tokenProvider.flowType = ANONYMOUS;
+  cleanUpSession();
   return store.dispatch('setAuthenticated', false)
     .then(() => redirect())
     .then(() => apolloClient.resetStore())
@@ -96,10 +99,3 @@ export const getAuthToken = group((error) => getToken(error, 0)
   .then(
     (tokenInfo) => `${tokenInfo.token_type} ${tokenInfo.access_token}`,
   ), new Map(), false, () => 'getAuthToken');
-
-// localStorage.clear()
-// refresh_token: "sales-demo-db:Ep-ZR1tPqBU5EtEG9gmZoF8CGPnkFUQ6qvdlqI5Pl1U"
-
-// var token  = JSON.parse(localStorage.session);
-// token.tokenInfo.access_token=88;
-// localStorage.setItem('session',JSON.stringify(token))

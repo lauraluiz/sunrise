@@ -159,7 +159,7 @@ export default {
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
-          console.log("why what?", error);
+          console.warn("Error in Adyen", error);
           this.error = true;
         });
     },

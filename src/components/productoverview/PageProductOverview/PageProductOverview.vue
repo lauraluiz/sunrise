@@ -6,14 +6,20 @@
   <div>
     <Breadcrumb :categorySlug="categorySlug" />
     <ProductList
-      @open-modal="openModal"
+      @open-quick-view="openProductQuickView"
+      @open-add-shopping-list="openAddToShoppingList"
       :categorySlug="categorySlug"
       :page="page"
     />
     <ProductQuickView
-      :showModal="showModal"
+      :showModal="showProductQuickView"
       :productSku="productSku"
-      @close-modal="closeModal"
+      @close-modal="closeProductQuickView"
+    />
+    <AddToShoppingList
+      :showModal="showAddToShoppingList"
+      :productSku="productSku"
+      @close-modal="closeAddToShoppingList"
     />
   </div>
 </template>

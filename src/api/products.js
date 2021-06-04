@@ -93,7 +93,7 @@ const products = {
           result[item.name] = item.label;
           return result;
         }, {}),
-      ]).then(([{ facets, ...result }, translation]) => ({
+      ]).then(([{ facets={}, ...result }, translation]) => ({
         ...result,
         facets: config.facetSearches.map(
           ({ name, type }) => {

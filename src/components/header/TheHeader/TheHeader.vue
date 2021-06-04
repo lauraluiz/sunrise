@@ -86,6 +86,14 @@
                         <span class="count-style">{{ totalCartItems }} </span>
                       </a>
                     </div>
+                    <div class="cart-wrap component-same ml-10">
+                      <router-link
+                        :to="{ name: 'shopping list' }"
+                      >
+                        <i class="dl-icon-heart"></i>
+                        <span class="count-style">{{ totalShoppingCartItems }} </span>
+                      </router-link>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -109,7 +117,13 @@
               <div class="same-style cart-wrap">
                 <a href="#" class="cart-active">
                   <i class="dl-icon-cart1 "></i>
-                  <span class="count-style">02</span>
+                  <span class="count-style">{{totalCartItems}}</span>
+                </a>
+              </div>
+              <div class="same-style cart-wrap">
+                <a href="#" class="cart-active">
+                  <i class="dl-icon-heart "></i>
+                  <span class="count-style">{{totalShoppingCartItems}}</span>
                 </a>
               </div>
               <div class="mobile-off-canvas">

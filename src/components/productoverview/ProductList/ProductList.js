@@ -194,8 +194,11 @@ export default {
       el.style.display = window.innerHeight > 300
        && window.scrollY > 200 ? '' : 'none';
     },
-    openModal(productInfo) {
-      this.$emit('open-modal', productInfo);
+    openQuickView(productInfo) {
+      this.$emit('open-quick-view', productInfo);
+    },
+    openAddToShoppingList(productInfo) {
+      this.$emit('open-add-shopping-list', productInfo);
     },
     toggleFilter() {
       this.show = !this.show;

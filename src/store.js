@@ -170,6 +170,7 @@ export default new Vuex.Store({
 
     [SET_AUTHENTICATED](state, authenticated) {
       state.authenticated = authenticated;
+      state.tokenInfo = null;
     },
 
     [SET_TOKEN_INFO](state, tokenInfo) {

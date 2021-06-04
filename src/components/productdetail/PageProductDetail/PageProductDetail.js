@@ -1,5 +1,6 @@
 import Breadcrumb from '../../common/Breadcrumb/Breadcrumb.vue';
 import ProductInfo from '../ProductInfo/ProductInfo.vue';
+import AddToShoppingList from '../../productoverview/AddToShoppingList/AddToShoppingList.vue';
 
 export default {
   props: {
@@ -12,8 +13,21 @@ export default {
       required: true,
     },
   },
+  data: () => ({
+    showAddToShoppingList:false,
+    productSku: null,
+  }),
+  methods:{
+    openAddToShoppingList() {
+      this.showAddToShoppingList = true;
+    },
+    closeAddToShoppingList() {
+      this.showAddToShoppingList = false;
+    },
+  },
   components: {
     Breadcrumb,
     ProductInfo,
+    AddToShoppingList
   },
 };

@@ -23,6 +23,14 @@ export default {
       type: Number,
       required: false,
     },
+    onAdd: {
+      type: Function|Boolean,
+      required:false
+    },
+    addCaption: {
+      type:String,
+      default:"addToCart"
+    }
   },
   mixins: [cartMixin],
   data: () => ({
@@ -38,10 +46,11 @@ export default {
     },
   },
   methods: {
-    submitForm() {
-      this.$refs.form.submit();
-    },
     async addLineItem() {
+      if(this.onAdd){
+        this.onAdd(this.sku,this.quantity)
+        return
+      }
       if (!this.isOnStock) {
         return;
       }

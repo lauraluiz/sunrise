@@ -19,7 +19,6 @@ export default {
   },
   mixins: [cartMixin],
   data: () => ({
-    me: null,
     selectedShippingMethod: null,
   }),
   methods: {
@@ -67,30 +66,6 @@ export default {
     },
   },
   apollo: {
-    me: {
-      query: gql`
-        query me {
-          me {
-            activeCart {
-              id
-              version
-              shippingInfo {
-                shippingMethod {
-                  id
-                }
-              }
-              shippingAddress {
-                country
-                state
-              }
-              totalPrice {
-                centAmount
-                currencyCode
-              }
-            }
-          }
-        }`,
-    },
     shippingMethodsByLocation: {
       query: gql`
         query checkoutShippingMethods($currency: Currency!, $country: Country!, $state: String,$locale:Locale) {

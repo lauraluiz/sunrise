@@ -24,6 +24,7 @@
                 @update-shipping="updateShippingMethod"
                 @complete-order="placeOrder"
                 :showError="showError"
+                :me="me"
               />
             </div>
           </div>

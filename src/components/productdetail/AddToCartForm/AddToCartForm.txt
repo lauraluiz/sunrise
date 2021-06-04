@@ -1,8 +1,10 @@
 de:
   addToCart: Zum Warenkorb Hinzufügen
+  addToShoppingList: ??????
   notInStock: Artikel ist nicht auf Lager
   quantityError: Geben Sie den Wert kleiner oder gleich {quantity} ein
 en:
   addToCart: Add to Shopping Bag
+  addToShoppingList: Add to Shopping List
   notInStock: Item is not in stock
   quantityError: Enter the value less or equal to {quantity}

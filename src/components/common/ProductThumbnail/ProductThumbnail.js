@@ -19,8 +19,11 @@ export default {
       return addLine(this)
         .then(() => this.$store.dispatch('openMiniCart'));
     },
-    openModal() {
-      this.$emit('open-modal', { slug: this.currentProduct.slug, sku: this.matchingVariant.sku });
+    openQuickView() {
+      this.$emit('open-quick-view', { slug: this.currentProduct.slug, sku: this.matchingVariant.sku });
+    },
+    openAddToShoppingList() {
+      this.$emit('open-add-shopping-list', { slug: this.currentProduct.slug, sku: this.matchingVariant.sku });
     },
   },
   computed: {

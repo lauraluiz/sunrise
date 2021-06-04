@@ -19,6 +19,11 @@ export default {
     watch(props,newProps=>sku.value=newProps.sku)
     return useProductQuery(props,ctx,sku);
   },
+  methods: {
+    openAddToShoppingList() {
+      this.$emit('open-add-shopping-list', { slug: this.currentProduct.slug, sku: this.currentProduct.sku });
+    }
+  },
   components: {
     DetailsSection,
     ProductGallery,

@@ -26,7 +26,8 @@
       <div class="shop-wrapper" v-if="products.results.length">
         <div class="row">
           <ProductThumbnail
-            @open-modal="openModal"
+            @open-quick-view="openQuickView"
+            @open-add-shopping-list="openAddToShoppingList"
             v-for="product in products.results"
             data-test="product-list"
             :key="product.id"

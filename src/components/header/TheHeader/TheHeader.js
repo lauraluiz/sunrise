@@ -3,6 +3,8 @@ import LoginButton from "../LoginButton/LoginButton.vue";
 import LocationSelector from "../LocationSelector/LocationSelector.vue";
 import MiniCart from "../MiniCart/MiniCart.vue";
 import cartMixin from "../../../mixins/cartMixin";
+import { inject, computed } from '@vue/composition-api';
+import { SHOPPING_LIST } from "../../../composition/useShoppingList";
 
 export default {
   components: {
@@ -16,6 +18,20 @@ export default {
       searchText: this.$route.query.q || "",
       mobileMenuOpen: false,
       searchOpen: false,
+    };
+  },
+  setup() {
+    const {shoppingLists} = inject(SHOPPING_LIST);
+    const totalShoppingCartItems = computed(() => {
+      return (shoppingLists.value || []).reduce(
+        (total,list)=>list.lineItems.reduce(
+          (total, { quantity }) => total + quantity,
+          total
+        ),0
+      );
+    });
+    return {
+      totalShoppingCartItems,
     };
   },
   mixins: [cartMixin],

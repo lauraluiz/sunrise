@@ -1,7 +1,7 @@
 import config from "../../sunrise.config";
 import { getAuthToken } from "../auth";
 import { group } from "./lib";
-
+export const groupApi = group;
 export const withPage = ({
   page = 1,
   pageSize = 20,
@@ -20,6 +20,11 @@ export const fetchJson = (...args) =>
     return result.json();
   });
 export const groupFetchJson = group(fetchJson);
+export const groupFetchJsonCacheSession = group(
+  fetchJson,
+  new Map(),
+  false
+);
 
 export const baseUrl = `${config.ct.api}/${config.ct.auth.projectKey}`;
 export const withToken = (() => {
@@ -50,6 +55,10 @@ export const makeConfig = (token) => ({
 });
 
 export const toUrl = (base, query) => {
+  const queryId = query.find(([key])=>key==='id');
+  if(queryId){
+    return base.slice(0,-6)+queryId[1]
+  }
   const url = new URL(base);
   const pageSize = query.find(
     ([key]) => key === "pageSize"

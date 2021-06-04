@@ -1,0 +1,14 @@
+en:
+  yourList: "Your Shopping List"
+  itemsTotal: "{n} item in total | {n} items in total"
+  empty: "You have no shopping lists"
+  continueShopping: "Continue Shopping"
+  shopNow: "Shop now"
+  startCheckout: "Start Checkout"
+de:
+  yourList: "Ihr Einkaufsliste"
+  itemsTotal: "{n} Artikel im Einkaufsliste"
+  empty: "Ihr Warenkorb ist derzeit leer"
+  continueShopping: "Weiter einkaufen"
+  shopNow: "Jetzt einkaufen"
+  startCheckout: "Zur Kasse"

@@ -5,7 +5,7 @@ import AddToCartForm from '../../productdetail/AddToCartForm/AddToCartForm.vue';
 import BasePrice from '../../common/BasePrice/BasePrice.vue';
 import VariantSelector from '../../productdetail/VariantSelector/VariantSelector.vue';
 import useProductQuery from '../../../composition/useProductQuery';
-import { provide, ref, watch } from 'vue-demi';
+import { computed, inject, provide, ref, watch } from 'vue-demi';
 
 export default {
   data: () => ({
@@ -22,6 +22,10 @@ export default {
   props: {
     showModal: Boolean,
     productSku: String,
+    modalName: {
+      type:String,
+      default:"quickView"
+    }
   },
   setup(props,ctx){
     const sku = ref(props.productSku)
@@ -31,21 +35,32 @@ export default {
     watch(props,(props)=>{
       sku.value=props.productSku;
     });
+    const override = inject('ADD_TO_SHOPPING_LIST',{
+      name:false,
+      onAdd:false,
+      addCaption:undefined
+    });
+    const showName = computed(()=>override.name!==false)
     return {
       ...useProductQuery(props,ctx,sku),
+      ...override,
+      showName,
       sku
     };
   },
   watch: {
     showModal() {
       if (this.showModal === true) {
-        this.$modal.show('quickView');
+        this.$modal.show(this.modalName);
+      }else{
+        this.$modal.hide(this.modalName);
+        this.$emit('close-modal');  
       }
     },
   },
   methods: {
     closeModal() {
-      this.$modal.hide('quickView');
+      this.$modal.hide(this.modalName);
       this.$emit('close-modal');
       this.quantity = 1;
     },

@@ -29,7 +29,7 @@
           <input
             data-test="add-to-cart-button"
             type="submit"
-            :value="$t('addToCart')"
+            :value="$t(addCaption)"
           />
         </div>
       </div>

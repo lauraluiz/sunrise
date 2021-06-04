@@ -4,7 +4,7 @@ import { selectChannel, selectCurrency } from './selectors';
 import useCountry from './useCountry';
 import useLocale from './useLocale';
 import useStore from './useStore';
-export default (props,ctx,sku) => {
+export default (props,ctx,sku=ref(null),id,variantId) => {
   //step one to solve race condition
   const requested = {current:null};
   //example of watching locale
@@ -26,7 +26,7 @@ export default (props,ctx,sku) => {
     availability.value?.availableQuantity
   );
   const availableQ = computed(()=>
-    availableQuantity.value !== "undefined"
+    availableQuantity.value !== undefined
   );
   const isOnStock = computed(()=>{
     const inStock = availability.value?.isOnStock;
@@ -35,7 +35,7 @@ export default (props,ctx,sku) => {
       : inStock
   });
   const getProductProjection = () => {
-    if(!sku.value){
+    if(!(sku.value || id)){
       return
     }
     const query = {
@@ -46,6 +46,9 @@ export default (props,ctx,sku) => {
     };
     if(staged.value){
       query.staged=true
+    }
+    if(id){
+      query.id = id;
     }
     //step 2 in fixing race condition
     const current = {};
@@ -62,14 +65,18 @@ export default (props,ctx,sku) => {
           //  requested product that resolved
           return;
         }
-        const p = response.results[0];
+        const p = id ? response : response.results[0]
         const name = p?.name[locale.value]
+        const slug = p?.slug[locale.value]
         const allVariants = p.variants.concat(p.masterVariant).map(
-          p=>({...p,name})
+          p=>({...p,name,slug})
         )
         variants.value = allVariants;
-        product.value = allVariants.find(v=>v.sku===sku.value);
-        masterVariant.value = {...p.masterVariant,name};
+        product.value = allVariants.find(v=>sku.value
+          ? v.sku===sku.value
+          : v.id===variantId
+        );
+        masterVariant.value = {...p.masterVariant,name,slug};
       }
     )
   }

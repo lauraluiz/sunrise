@@ -6,7 +6,7 @@
   <div>
     <modal
       styles="border-radius: 0"
-      name="quickView"
+      :name="modalName"
       width="1000"
       height="500"
       @closed="closeModal"
@@ -42,10 +42,18 @@
                 <div v-if="availableQ">
                   {{$t('inStock')}}: {{availableQuantity}}
                 </div>
+                <div v-if="showName">
+                  <input 
+                    v-model="name"
+                    placeholder="Name of the shopping list"
+                  />
+                </div>
                 <AddToCartForm 
                   :sku="sku" 
                   :isOnStock="isOnStock" 
                   :availableQuantity="availableQuantity"
+                  :onAdd="onAdd"
+                  :addCaption="addCaption"
                   @product-added="productAdded"
                 />
               </div>
